@@ -10,8 +10,13 @@ update_opnsense_cert($argv[1], $argv[2], $argv[3], $argv[4], $argv[5]);
 
 function update_opnsense_cert( $OPNsenseIpAddr, $OPNsenseCertname, $fullchain, $privkey, $OPNsenseAdminUser ) {
 	$cwd=__DIR__;
-	$SSH="ssh -o StrictHostKeyChecking=no -o LogLevel=ERROR";
-	$SCP="scp -q -o StrictHostKeyChecking=no -o LogLevel=ERROR";
+	preg_match('/(.*):(.*)/', $OPNsenseIpAddr, $m);
+	if( isset($m[2]) ) {
+		$OPNsenseIpAddr=$m[1];
+		$OPNsensePort=$m[2]?$m[2]:22;
+	} else $OPNsensePort=22;
+	$SSH="ssh -p $OPNsensePort -o StrictHostKeyChecking=no -o LogLevel=ERROR";
+	$SCP="scp -q -P $OPNsensePort -o StrictHostKeyChecking=no -o LogLevel=ERROR";
 	$fullchain = file_get_contents($fullchain);
 	$cert=openssl_x509_parse($fullchain);
 	$privkey = file_get_contents($privkey);
@@ -65,7 +70,8 @@ function update_opnsense_cert( $OPNsenseIpAddr, $OPNsenseCertname, $fullchain, $
 }
 
 function logger($s) {
-	syslog( LOG_INFO, basename(__FILE__) . ": $s");
+	$backtrace = debug_backtrace();
+	syslog( LOG_INFO, basename(__FILE__) . ":" . $backtrace[0]['line'] . " $s");
 }
 
 function log_and_die($s) {
