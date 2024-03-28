@@ -69,14 +69,14 @@ function update_opnsense_cert( $OPNsenseIpAddr, $OPNsenseCertname, $fullchain, $
 	logger("Completed.");
 }
 
-function logger($s) {
+function logger($s, $bti=0) {
 	$backtrace = debug_backtrace();
-	syslog( LOG_INFO, basename(__FILE__) . ":" . $backtrace[0]['line'] . " $s");
+	syslog( LOG_INFO, basename(__FILE__) . ":" . $backtrace[$bti]['line'] . " $s");
 }
 
 function log_and_die($s) {
 	$as=explode("\n", trim($s));
-	foreach($as as $v) logger($v);
-	logger("Died.");
+	foreach($as as $v) logger($v, 1);
+	logger("Died.", 1);
 	die($s);
 }
