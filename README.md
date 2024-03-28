@@ -17,8 +17,8 @@ Preparation in the OPNsense GUI:
 
 Run the script:
 
-./OPNsenseCertUpdate.php OPNsenseIpAddr OPNsenseCertName fullchainCertPath privateKeyPath OPNsenseUser
+./OPNsenseCertUpdate.php OPNsenseIpAddr:Port OPNsenseCertName fullchainCertPath privateKeyPath OPNsenseUser
 
 Example:
 
-/opt/bin/OPNsenseCertUpdate 172.23.1.1 LEWildcardCert /var/lib/certificates/fullchain.pem /var/lib/certificates/privkey.pem root
+/opt/bin/OPNsenseCertUpdate '172.23.1.1:22' LEWildcardCert /var/lib/certificates/fullchain.pem /var/lib/certificates/privkey.pem root
