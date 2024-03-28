@@ -1,4 +1,4 @@
-# OPNsenseCertUpdate.php
+# OPNsenseCertUpdate PHP Version
 Scripted update of a OPNsense certificate
 
 This PHP script replaces certificates in the OPNsense.
@@ -11,11 +11,11 @@ It essentially does the same thing as the Python script of the same name.
 - copy the modified config.xml back to the OPNsense
 - start the OPNsense WebGUI and synchronize config to backup OPNsense
 
-Preparation in the OPNsense GUI:
+## Preparation in the OPNsense GUI:
 - import the certificate manually for the first time
 - add the public key to a user with admin rights for ssh login without password
 
-Run the script:
+## Run the script:
 
 ./OPNsenseCertUpdate.php OPNsenseIpAddr:Port OPNsenseCertName fullchainCertPath privateKeyPath OPNsenseUser
 
